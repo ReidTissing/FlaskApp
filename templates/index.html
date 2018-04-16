@@ -22,6 +22,8 @@
     }
     body {
     background: #2a3033;
+    padding: 50px;
+    margin: 20px;
     }
     .slidecontainer {
         width: 100%;
@@ -64,19 +66,28 @@
     background-image: linear-gradient(#c60c30, #981e32, 60%, #981e32);
     color: #d7dadb;
     }
+.container { border: 1px solid white;
+ padding: 10px;
+ padding-bottom: 20px;
+ max-width: 50%;
+ }
     </style>
   </head>
   <body>
-    <center><h1>Upload File for Processing</h1><br>
-    <div class="checkbox"><h5>
-    <label><input type="checkbox" value="">  include levee</label></h5>
-    </div>
 
-    <div class="slidecontainer">
-    <input type="range" min="1950" max="2018" value="1984" class="slider" id="myRange">
+
+  <center>
+  <div class="container">
+    <div class="panel panel-default">
+    <div class="panel-heading"><h1>Upload File for Processing</h1></div>
+    <div class="panel-body">
+      <div class="checkbox"><h5>
+        <label><input type="checkbox" value="">  include levee</label></h5>
+      </div>
+      <div class="slidecontainer">
+        <input type="range" min="1950" max="2018" value="1984" class="slider" id="myRange">
+      </div>
     <p>Year: <span id="demo"></span></p>
-    </div>
-        </center>
 
     <script>
     var slider = document.getElementById("myRange");
@@ -88,6 +99,9 @@
     }
     </script>
 	<center><button type="button" class="btn btn-danger">Upload</button></center>
+    </div>
+   </div>
+  </div>
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
