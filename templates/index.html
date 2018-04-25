@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!doctype html>
+{% block body %}
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -15,63 +16,14 @@
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+      <script type="text/javascript" src="static/js/jquery.filedrop.js"></script>
+      <script type="text/javascript" src="static/js/upload.js"></script>
+
     <![endif]-->
-          <style>
-    h1, .h1, body {
-    color: #b5babe;
-    }
-    body {
-    background: #2a3033;
-    padding: 50px;
-    margin: 20px;
-    }
-    .slidecontainer {
-        width: 100%;
-    }
+    <!-- custom stylesheet for this project -->
+      <link rel="stylesheet" type="text/css" href="/static/css/upload.css">
 
-    .slider {
-        -webkit-appearance: none;
-        width: 50%;
-        height: 15px;
-        border-radius: 5px;
-        background: #d3d3d3;
-        outline: none;
-        opacity: 0.7;
-        -webkit-transition: .2s;
-        transition: opacity .2s;
-    }
-
-    .slider:hover {
-        opacity: 1;
-    }
-
-    .slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        background: #981e32;
-        cursor: pointer;
-    }
-
-    .slider::-moz-range-thumb {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        background: #4CAF50;
-        cursor: pointer;
-    }
-    .btn-danger {
-    background-image: linear-gradient(#c60c30, #981e32, 60%, #981e32);
-    color: #d7dadb;
-    }
-.container { border: 1px solid white;
- padding: 10px;
- padding-bottom: 20px;
- max-width: 50%;
- }
-    </style>
   </head>
   <body>
 
@@ -81,28 +33,18 @@
     <div class="panel panel-default">
     <div class="panel-heading"><h1>Upload File for Processing</h1></div>
     <div class="panel-body">
-      <div class="checkbox"><h5>
-        <label><input type="checkbox" value="">  include levee</label></h5>
-      </div>
-      <div class="slidecontainer">
-        <input type="range" min="1950" max="2018" value="1984" class="slider" id="myRange">
-      </div>
-    <p>Year: <span id="demo"></span></p>
-
-    <script>
-    var slider = document.getElementById("myRange");
-    var output = document.getElementById("demo");
-    output.innerHTML = slider.value;
-
-    slider.oninput = function() {
-      output.innerHTML = this.value;
-    }
-    </script>
-	<center><button type="button" class="btn btn-danger">Upload</button></center>
+	<center>
+    <form method=post enctype=multipart/form-data>
+      <p><input type=file name=file><button type="submit" class="btn btn-danger">Upload</button>
+    </form>
+          {% if error %}
+        <p class=error><strong><font color="#c69214">Error:</strong> {{ error }} </font>
+  {% endif %}
+    </center>
     </div>
    </div>
   </div>
-
+  </center>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -110,3 +52,4 @@
 	<script src="/static/js/bootstrap.min.js"></script>
   </body>
 </html>
+{% endblock %}
