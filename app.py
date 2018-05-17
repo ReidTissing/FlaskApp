@@ -1,7 +1,7 @@
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, json, flash, request, redirect, session, jsonify, url_for
 # from flaskext.mysql import MySQL
-
+from flask_sqlalchemy import SQLAlchemy
 
 import flask_wtf
 import os
@@ -12,6 +12,8 @@ from forms import LoginForm
 app = Flask(__name__)
 app = app
 app.config.from_object(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+db = SQLAlchemy(app)
 app.SECRET_KEY = 'peaches'
 UPLOAD_FOLDER = 'upload'
 ALLOWED_EXTENSIONS = set(['dbf'])
@@ -22,6 +24,15 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+class User(db.Model):
+	"""create user table"""
+	id = db.Column(db.Integer, primary_key=True)
+	username = db.Column(db.String(80), unique=True)
+	password = db.Column(db..String(80))
+	
+	def __init__(self, username, password):
+		self.username = username
+		self.password = password
 
 # begin routing. '/' goes to login first, checks case-insensitive logins
 @app.route('/', methods=['GET', 'POST'])
