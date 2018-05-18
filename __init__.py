@@ -1,3 +1,4 @@
+#!/usr/bin/python3.5
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, json, flash, request, redirect, session, jsonify, url_for
 # from flaskext.mysql import MySQL
@@ -13,7 +14,7 @@ app = Flask(__name__)
 app = app
 app.config.from_object(__name__)
 app.SECRET_KEY = 'peaches'
-UPLOAD_FOLDER = 'upload'
+UPLOAD_FOLDER = 'var/www/FlaskApp/FlaskApp/static/uploads'
 ALLOWED_EXTENSIONS = set(['dbf'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -55,12 +56,16 @@ def index():
        # submit a empty part without filename
        if file.filename == '':
            error = "No file selected."
-       if file.filename != "*.dbf":
-           error = "Only .dbf files are supported."
+       #if file.filename != "*.dbf":
+       if "dbf" not in file.filename:
+	   error = "Only .dbf files are supported."
+	   return render_template('index.html', error=error)
        if file and allowed_file(file.filename):
            filename = secure_filename(file.filename)
-           file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-       return render_template('process.html')
+	   #file.save(os.path.join(basedir, app.config['UPLOAD_FOLDER'], filename))
+           #file.save(['UPLOAD_FOLDER'], filename))
+	   file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+       return render_template('process.html', fname=filename)
     return render_template('index.html', error=error)
 
 
