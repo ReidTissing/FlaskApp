@@ -9,6 +9,7 @@ import os
 import uuid
 from flask import render_template
 from forms import LoginForm
+from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 
 app = Flask(__name__)
 app = app
@@ -18,6 +19,8 @@ UPLOAD_FOLDER = 'var/www/FlaskApp/FlaskApp/static/uploads'
 ALLOWED_EXTENSIONS = set(['dbf'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+class ReusableForm(Form):
+    name = TextField('Percent of value lost')
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -46,6 +49,7 @@ def login():
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     error = None
+    form = ReusableForm(request.form)
     if request.method == 'POST':
        # check if the post request has the file part
        if 'file' not in request.files:

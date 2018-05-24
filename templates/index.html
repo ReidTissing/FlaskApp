@@ -23,10 +23,56 @@
     <![endif]-->
     <!-- custom stylesheet for this project -->
       <link rel="stylesheet" type="text/css" href="/static/css/upload.css">
-
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+          <style>
+    h1, .h1, body {
+    color: #b5babe;
+    }
+    body {
+    background: #2a3033;
+    }
+    .slidecontainer {
+        width: 100%;
+    }
+    .slider {
+        -webkit-appearance: none;
+        width: 50%;
+        height: 15px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+    .slider:hover {
+        opacity: 1;
+    }
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #981e32;
+        cursor: pointer;
+    }
+    .slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #4CAF50;
+        cursor: pointer;
+    }
+    .btn-danger {
+    background-image: linear-gradient(#c60c30, #981e32, 60%, #981e32);
+    color: #d7dadb;
+    }
+    </style>
   </head>
   <body>
-
 
   <center>
   <div class="container">
@@ -34,13 +80,21 @@
     <div class="panel-heading"><h1>Upload File for Processing</h1></div>
     <div class="panel-body">
 	<center>
+		<div class="slidecontainer">
+    <input type="range" min="0" max="20" value="10" class="slider" id="myRange">
+    <p>Water level rise (in ft): <span id="demo"></span></p>
+    </div>
+<br>   
+	<div class="input text" id="valuelost"><p>Percent of value lost: <input type="text" name="valuelost" maxlength="2" size="2"></input></div></p>
+<br>
+</div>
     <form method=post enctype=multipart/form-data>
       <p><input type=file name=file><button type="submit" class="btn btn-danger">Upload</button>
     </form>
           {% if error %}
         <p class=error><strong><font color="#c69214">Error:</strong> {{ error }} </font>
-  {% endif %}
-    </center>
+  {% endif %}   
+ </center>
     </div>
    </div>
   </div>
@@ -50,6 +104,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="/static/js/bootstrap.min.js"></script>
-  </body>
+	    <script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+    slider.oninput = function() {
+      output.innerHTML = this.value;
+    }
+    </script>  
+</body>
 </html>
 {% endblock %}
